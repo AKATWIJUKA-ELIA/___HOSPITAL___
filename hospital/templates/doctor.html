@@ -1,0 +1,331 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'doctor.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body class="hm-gradient">
+      <div class="row bg-primary">
+            <h3 style="text-align: center;color: aliceblue;margin-left: 17%;">DASH <span style="color: rgb(228, 3, 239);">BOARD</span></h3>
+            <br>
+            <h3 style="color: white;font-family: 'Times New Roman', Times, serif;padding-top: 5%;">Welcome Doctor<span style="color: rgb(174, 0, 255);"> ELIA</span></h3>
+            
+            <div class="col-4" style="margin-left: 70%;">
+                  <button id="student">Student <span id="student_notification" style="color:aliceblue;display:inline;"> ({{ number_of_students }})</span></button>
+                  <button id="other" class="ml-2">Other  <span id="other_notification" style="color: aliceblue;"> ({{ number_of_others }})</span></button>
+                  <button id="staff" class="ml-2">Staff <span id="staff_notification" style="color: aliceblue;"> ({{ number_of_Staff }})</span></button>
+            </div>
+      </div>
+      <div class="row my-3" style="margin-left: 17%;">
+            <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px;"><h3>Total Patients  <span style="color: rgb(228, 3, 239);"> ({{ total_patients }})</span> </h3></div>
+            <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px"> <h3>Staff</h3></div>
+            <div class="col-3 bg-white my-0 mb-0" style="border-radius: 2%;height: 70px"><h3>Others</h3> </div>
+      </div>
+      <div id="student_table"  style="border-radius: 5%; display: none;">
+        <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Students Appointments</h3>
+            <table class=" zui-table bg-primary table table-hover"  style="margin-left: 20%;margin-top: 1%;border-radius: 20px;margin-right: 15%;width: 70%;">
+                  <!--Table head-->
+                  
+
+                  <thead>
+                        <div style="margin-left: 13%;" class="w-full lg:w-6/12 px-4">
+                            <div class="relative w-full mb-3">
+                            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                                Search students
+                            </label>
+                            <input type="text" id="search" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder = "Type here" required>
+                            </div>
+                        </div>
+                      <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Registration_No</th>
+                          <th>Course</th>
+                          <th>Current Medication</th>
+                          <th>Height</th>
+                          <th>Weight</th>
+                          <th>Age</th>
+                          <th>Reason</th>
+                      </tr>
+                  </thead>
+
+                  {% for instance in data %}
+                  <!--Table head-->
+                  
+                  <!--Table body-->
+                  <tbody id="tdata">
+                      <tr>
+                           <td>{{instance.fields.Date}}</td>
+                          <td>{{instance.fields.name}}</td>
+                          <td>{{instance.fields.Registration_number}}</td>
+                          <td>{{instance.fields.Course}}</td>
+                          <td>{{instance.fields.current_medication}}</td>
+                          <td>{{instance.fields.Height}}</td>
+                          <td>{{instance.fields.Weight}}</td>
+                          <td>{{instance.fields.DateofBirth}}</td>
+                          <td>{{instance.fields.reason_for_seeing_doctor}}</td>
+                      </tr>       
+                      
+                  </tbody>
+                  <!--Table body-->
+                  {% endfor %}
+              </table>
+           
+      </div>
+      
+      <div id="other_table" style="border-radius: 5%; display: none;margin-top: 2%;">
+        <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Others' Appointments</h3>
+         <!-- #####################################
+            
+             O T H E R  T A B L E
+            
+             ##########################################-->
+             <table class=" zui-table bg-primary table table-hover"   style="margin-left: 20%;margin-top: 1%;border-radius: 20px;margin-right: 15%;width: 70%;">
+                <!--Table head-->
+                
+
+                <thead>
+                    <div style="margin-left: 13%;" class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                            Search others
+                        </label>
+                        <input type="text" id="search_other" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder = "Type here" required>
+                        </div>
+                    </div>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Current Medication</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Age</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+
+                {% for instance in other_data %}
+                <!--Table head-->
+                
+                <!--Table body-->
+                <tbody id="other_data">
+                    <tr>
+                        <td>{{instance.fields.Date}}</td>
+                        <td>{{instance.fields.name}}</td>
+                        <td>{{instance.fields.current_medication}}</td>
+                        <td>{{instance.fields.Height}}</td>
+                        <td>{{instance.fields.Weight}}</td>
+                        <td>{{instance.fields.DateofBirth}}</td>
+                        <td>{{instance.fields.reason_for_seeing_doctor}}</td>
+                    </tr>       
+                    
+                </tbody>
+                <!--Table body-->
+                {% endfor %}
+            </table>
+      </div>
+        <!-- #####################################
+            
+             S T A F F  T A B L E
+            
+             ##########################################-->
+      <div id="staff_table" style="border-radius: 5%; display: none;margin-top: 2%;">
+        <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Staff's Appointments</h3>
+         
+             <table class=" zui-table bg-primary table table-hover"   style="margin-left: 20%;margin-top: 1%;border-radius: 20px;margin-right: 15%;width: 70%;">
+                <!--Table head-->
+                
+
+                <thead>
+                    <div style="margin-left: 13%;" class="w-full lg:w-6/12 px-4">
+                        <div class="relative w-full mb-3">
+                        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                            Search staff
+                        </label>
+                        <input type="text" id="search_staff" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder = "Type here" required>
+                        </div>
+                    </div>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Current Medication</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Age</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+
+                {% for instance in staff_data %}
+                <!--Table head-->
+                
+                <!--Table body-->
+                <tbody id="staff_data">
+                    <tr>
+                        <td>{{instance.fields.Date}}</td>
+                        <td>{{instance.fields.name}}</td>
+                        <td>{{instance.fields.current_medication}}</td>
+                        <td>{{instance.fields.Height}}</td>
+                        <td>{{instance.fields.Weight}}</td>
+                        <td>{{instance.fields.DateofBirth}}</td>
+                        <td>{{instance.fields.reason_for_seeing_doctor}}</td>
+                    </tr>       
+                    
+                </tbody>
+                <!--Table body-->
+                {% endfor %}
+            </table>
+      </div>
+      
+      <nav class="main-menu" style="position: fixed;">
+            <ul>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                           Dashboard
+                        </span>
+                    </a>
+                  
+                </li>
+                
+                    
+                </li>
+               
+                <li class="has-subnav"  id="book">
+                    <a href="javascript:void(0)">
+                       <i class="fa fa-camera-retro fa-2x"></i>
+                        <span class="nav-text">
+                            Bookings
+                        </span>
+                    </a>
+                  </li>
+                
+                <li id="scheduling_button">
+                    <a href="#">
+                        <i class="fa fa-book fa-2x"></i>
+                        <span class="nav-text">
+                           Schedule a Journey
+                        </span>
+                    </a>
+                </li>
+                
+              
+                
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="javascript:void(0)">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>  
+            </ul>
+      </nav>
+
+      <script>
+
+            let n = document.getElementById("student_notification");
+            let x = document.getElementById("student_table");
+            document.getElementById("student").addEventListener("click", function () {
+                let y = document.getElementById("other_table");
+            
+            if (x.style.display === "none"){
+                  x.style.display = "block";
+            }
+            else {
+                  x.style.display ="none";
+            }
+            if (y.style.display === "block"){
+                  y.style.display = "none";
+            }
+            if (z.style.display === "block"){
+                  z.style.display = "none";
+            }
+            /* NOTIFICATION FOR STUDENT */
+            if (n.style.display === 'inline'){
+                n.style.display = 'none'
+            }
+
+
+      }
+      );
+
+      let y = document.getElementById("other_table");
+            document.getElementById("other").addEventListener("click", function () {
+                let x = document.getElementById("student_table");
+            
+            if (y.style.display === "none"){
+                  y.style.display = "block";
+            }
+
+            else {
+                  y.style.display ="none";
+            }
+            if(x.style.display  === "block"){
+                x.style.display = "none"
+            }
+            if (z.style.display === "block"){
+                  z.style.display = "none";
+            }
+
+      }
+      );
+
+      let z = document.getElementById("staff_table");
+            document.getElementById("staff").addEventListener("click", function () {
+                let x = document.getElementById("student_table");
+                let y = document.getElementById("other_table");
+            
+            if (z.style.display === "none"){
+                  z.style.display = "block";
+            }
+
+            else {
+                  z.style.display ="none";
+            }
+            if(x.style.display  === "block"){
+                x.style.display = "none"
+            }
+            if(y.style.display  === "block"){
+                y.style.display = "none"
+            }
+
+      }
+      );
+
+      $(document).ready(function () {
+            $("#search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#tdata tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#search_other").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#other_data tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $("#search_staff").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#staff_data tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+      </script>
+</body>
