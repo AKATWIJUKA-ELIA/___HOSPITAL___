@@ -1,0 +1,27 @@
+/* # # # # # # # # # # # # C H A R T C O D E # # # # # # # # # # # # # */
+
+    var chart = new ej.charts.chart({
+        var number_of_students = {{ number_of_students }};
+        var date_x = {{ instance.fields.Date }};
+            // initializind x-axis
+            primaryXAxis: {
+              valueType: 'DateTime',
+              title: 'Date',},
+              //initializing y-axis
+              primaryYAxis: {
+                title: 'Number of patients per day'
+              },
+              series : [
+                {type:'line',
+                dataSource:[
+                    {date:"date_x",number:number_of_students},
+        
+                ],
+                 xName:'date',yName:'number',
+            }],
+        }
+        );
+       chart.appendTo('#container');
+
+
+        /* # # # # # # # # # # # # C H A R T C O D E # # # # # # # # # # # # # */

@@ -1,6 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'dashboard.css' %}">
 <link rel="stylesheet" href="{% static 'doctor.css' %}">
+<link href="{% static 'images/Bugema-University-removebg-preview.png' %}" rel="icon">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -8,6 +9,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!--link for the chart -->
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+
 <body class="hm-gradient">
       <div class="row bg-primary">
             <h3 style="text-align: center;color: aliceblue;margin-left: 17%;">DASH <span style="color: rgb(228, 3, 239);">BOARD</span></h3>
@@ -20,14 +25,36 @@
                   <button id="staff" class="ml-2">Staff <span id="staff_notification" style="color: aliceblue;"> ({{ number_of_Staff }})</span></button>
             </div>
       </div>
+      {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert alert-{{message.tags }} alert-dismissible fade show" role ="alert" style= "text-align : center;background-color: aqua;">
+                        <strong>
+                          Message:
+                        </strong> {{ message }}
+                        <button type ="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span  aria-hidden="true"> &times;</span>
+                        </button>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
       <div class="row my-3" style="margin-left: 17%;">
             <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px;"><h3>Total Patients  <span style="color: rgb(228, 3, 239);"> ({{ total_patients }})</span> </h3></div>
             <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px"> <h3>Staff</h3></div>
             <div class="col-3 bg-white my-0 mb-0" style="border-radius: 2%;height: 70px"><h3>Others</h3> </div>
       </div>
+
+
+      <div id="update_patient_data" class="justify-content-center modal-body">
+        <div class="container-fluid ">
+            
+        </div>
+      </div>
+
+
+
       <div id="student_table"  style="border-radius: 5%; display: none;">
         <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Students Appointments</h3>
-            <table class=" zui-table bg-primary table table-hover"  style="margin-left: 20%;margin-top: 1%;border-radius: 20px;margin-right: 15%;width: 70%;">
+            <table class=" zui-table bg-primary table table-hover"  style="margin-left: 30%;margin-top: 1%;border-radius: 20px;margin-right: 8%;width: 70%;">
                   <!--Table head-->
                   
 
@@ -50,6 +77,9 @@
                           <th>Weight</th>
                           <th>Age</th>
                           <th>Reason</th>
+                          <th>Desease</th>
+                          <th>Doctors_comment</th>
+                          <th>Medication_given</th>
                       </tr>
                   </thead>
 
@@ -58,9 +88,9 @@
                   
                   <!--Table body-->
                   <tbody id="tdata">
-                      <tr>
-                           <td>{{instance.fields.Date}}</td>
-                          <td>{{instance.fields.name}}</td>
+                      <tr style="cursor: pointer;">
+                          <td>{{instance.fields.Date}}</td>
+                          <td><a style="color: blue;" href="">{{instance.fields.name}}</a></td>
                           <td>{{instance.fields.Registration_number}}</td>
                           <td>{{instance.fields.Course}}</td>
                           <td>{{instance.fields.current_medication}}</td>
@@ -68,15 +98,91 @@
                           <td>{{instance.fields.Weight}}</td>
                           <td>{{instance.fields.DateofBirth}}</td>
                           <td>{{instance.fields.reason_for_seeing_doctor}}</td>
-                      </tr>       
-                      
+                          <td>{{instance.fields.Desease}}</td>
+                          <td>{{instance.fields.Doctors_comment}}</td>
+                          <td>{{instance.fields.Medication_given}}</td>
+                      </tr>     
+
                   </tbody>
                   <!--Table body-->
                   {% endfor %}
               </table>
            
       </div>
+
+      <div class="container " style="margin-left: 15%;">
+        
+        <!-- Trigger the modal with a button -->
+        <button style="width: 200px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">update user data</button>
       
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+              </div>
+              <div class="modal-body">
+                <div class=" form_container col-5 my-5" id="update_patient_data" style=" height: 300px; border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: 30%;">
+                    
+                    <form class="overlay"  action="{% url 'update_student' %}" method="post" style="background-color:aliceblue;border-radius: 5px;margin-left: 0%;">
+                        <h3 style="font-family: 'Times New Roman', Times, serif;text-align: center;"> Update Patient Data</h3>
+                    {% csrf_token %}
+    
+                    <div class="row w-full lg:w-6/12 px-4">
+                        <div>
+                        <div class="form-group">
+                            <label style="color: aliceblue;" for="Registration_number">Registration_number</label>
+                            <input type="text" class="form-control" name="Registration_number" placeholder="Registration_number" required>
+                        </input>
+                        </div>
+                        
+                    </div>
+    
+                        <div class="row w-full lg:w-6/12 px-4">
+                            <div>
+                            <div class="form-group">
+                                <label style="color: aliceblue;" for="Desease">Desease</label>
+                                <input type="text" class="form-control" name="Desease" placeholder="Desease" required>
+                            </div>
+                            </div>
+                            
+                        </div>
+    
+                        <div class="row w-full lg:w-6/12 px-4">
+                            <div>
+                            <div class="form-group">
+                                <label style="color: aliceblue;" for="Medication_given">Medication_given</label>
+                                <input type="text" class="form-control" name="Medication_given" placeholder="Medication_given" required>
+                            </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="row w-full lg:w-6/12 px-4">
+                            <div>
+                            <div class="form-group">
+                                <label style="color: aliceblue;" for="Doctors_comment">Doctors_comment</label>
+                                <input type="text" class="form-control" name="Doctors_comment" placeholder="Doctors_comment" required>
+                            </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <button  type="submit" style="width: 40%;margin-left: 30%;background-color: rgb(40, 66, 89);">Update data</button>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
       <div id="other_table" style="border-radius: 5%; display: none;margin-top: 2%;">
         <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Others' Appointments</h3>
          <!-- #####################################
@@ -165,6 +271,8 @@
                 
                 <!--Table body-->
                 <tbody id="staff_data">
+
+                
                     <tr>
                         <td>{{instance.fields.Date}}</td>
                         <td>{{instance.fields.name}}</td>
@@ -196,20 +304,21 @@
                     
                 </li>
                
-                <li class="has-subnav"  id="book">
+                <li class="has-subnav " >
                     <a href="javascript:void(0)">
                        <i class="fa fa-camera-retro fa-2x"></i>
                         <span class="nav-text">
-                            Bookings
+                            Update Patient Data
                         </span>
                     </a>
                   </li>
+                  
                 
-                <li id="scheduling_button">
+                <li id="Dismisals">
                     <a href="#">
                         <i class="fa fa-book fa-2x"></i>
                         <span class="nav-text">
-                           Schedule a Journey
+                           Dismisals
                         </span>
                     </a>
                 </li>
@@ -232,6 +341,7 @@
 
       <script>
 
+
             let n = document.getElementById("student_notification");
             let x = document.getElementById("student_table");
             document.getElementById("student").addEventListener("click", function () {
@@ -249,6 +359,9 @@
             if (z.style.display === "block"){
                   z.style.display = "none";
             }
+            if (U.style.display ==="block"){
+            U.style.display = "none"
+        }
             /* NOTIFICATION FOR STUDENT */
             if (n.style.display === 'inline'){
                 n.style.display = 'none'
@@ -275,6 +388,9 @@
             if (z.style.display === "block"){
                   z.style.display = "none";
             }
+            if (U.style.display ==="block"){
+            U.style.display = "none"
+        }
 
       }
       );
@@ -297,9 +413,29 @@
             if(y.style.display  === "block"){
                 y.style.display = "none"
             }
+            if (U.style.display ==="block"){
+            U.style.display = "none"
+        }
 
       }
       );
+
+      //J A V A S C R I P  T  ___C O D E ____F O R ___U P D A T I N G _____P A T I E N T S _____D A T A
+      /*let U = document.getElementById("update_patient_data");
+      document.getElementById('patient_data').addEventListener('click', function(){
+        if (U.style.display ==="none"){
+            U.style.display = "block"
+        }
+        else {
+            z.style.display ="none";
+            }
+            if(x.style.display  === "block"){
+                x.style.display = "none"
+            }
+            if(y.style.display  === "block"){
+                y.style.display = "none"
+            }
+      });*/
 
       $(document).ready(function () {
             $("#search").on("keyup", function () {
@@ -327,5 +463,9 @@
                 });
             });
         });
-      </script>
+        
+        
+        
+     
+      </script> 
 </body>

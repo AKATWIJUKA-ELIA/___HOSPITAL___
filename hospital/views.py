@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from hospital.models import Student,Staff,Other,Registered_Students
 from django.contrib import messages
 from django.core import serializers
@@ -136,3 +136,19 @@ def login(request):
             return render(request,'login.html')
             
     return render(request,'login.html')
+def update_student(request):
+    if request.method == 'POST':
+        try:
+            Registration_number  = request.POST.get('Registration_number')
+            student = Student.objects.filter(Registration_number=Registration_number).exists()
+            Desease = request.POST.get('Desease')
+            Doctors_comment =request.POST.get('Doctors_comment')
+            Medication_given = request.POST.get('Medication_given')
+            
+            if student:
+                
+                Student.objects.filter(Registration_number=Registration_number).update(Desease=Desease, Doctors_comment=Doctors_comment,Medication_given=Medication_given)
+                messages.success(request, "Patient with registration number {} has been updated successfully...".format(Registration_number))
+        except ValueError:
+                return messages.error(request,"The Registration Number You entered is Not Available \n Please check it and Try Again")    
+    return redirect('doctor')       
