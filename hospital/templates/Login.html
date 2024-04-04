@@ -58,9 +58,7 @@
             <br>
 
             <div class="col my-5 ">
-                <h3 style="text-align: center;font-family:'Times New Roman', Times, serif; color:blue;">
-                LOG IN
-                </h3>
+                
             </div>
             
             <!--
@@ -74,6 +72,9 @@
                 <div class=" form_container col-5 my-5  " style=" height: 300px; border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: 30%;">
                     
                     <form class="overlay" action="{% url 'login' %}" method="post" style="background-color:aliceblue;border-radius: 5px;margin-left: 0%;">
+                        <h3 style="text-align: center;font-family:'Times New Roman', Times, serif; color:blue;">
+                            LOG IN
+                            </h3>
                     {% csrf_token %}
 
                     <div class="row">
