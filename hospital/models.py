@@ -22,6 +22,7 @@ class Student(models.Model):
     Desease = models.CharField(max_length = 500,default=None, null = True)
     Doctors_comment = models.CharField(max_length = 700,default=None, null = True)
     Medication_given = models.CharField(max_length = 500,default=None,null = True)
+    lab_comment = models.CharField(max_length = 500,default = None,null=True)
     
     
 class Other(models.Model):
@@ -44,6 +45,7 @@ class Other(models.Model):
     Desease = models.CharField(max_length = 500,default=None,null = True)
     Doctors_comment = models.CharField(max_length = 700,default=None,null = True)
     Medication_given = models.CharField(max_length = 500,default=None,null = True)
+    lab_comment = models.CharField(max_length = 500,default = None,null = True)
     
         
 class Staff(models.Model):
@@ -66,6 +68,7 @@ class Staff(models.Model):
     Desease = models.CharField(max_length = 500,default=None, null=True)
     Doctors_comment = models.CharField(max_length = 700,default=None,null=True)
     Medication_given = models.CharField(max_length = 500,default=None,null=True)
+    lab_comment = models.CharField(max_length = 500,default = None,null=True)
     
     
 class Registered_Students(models.Model):
@@ -74,4 +77,4 @@ class Registered_Students(models.Model):
     name = models.CharField(max_length=225)
     Registration_number = models.CharField(max_length = 255, unique=True, null=False,primary_key =True)
     Amount_Paid = models.IntegerField(default=1220000)
-    Balance = models.IntegerField(default=0,null=True)
+    Balance = models.IntegerField(default=None,null=True)

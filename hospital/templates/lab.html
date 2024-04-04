@@ -37,11 +37,7 @@
                       </div>
                     {% endfor %}
                   {% endif %}
-      <div class="row my-3" style="margin-left: 17%;">
-            <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px;"><h3>Total Patients  <span style="color: rgb(228, 3, 239);"> ({{ total_patients }})</span> </h3></div>
-            <div class="col-3 bg-white my-0 mr-2" style="border-radius: 2%;height: 70px"> <h3>Staff</h3></div>
-            <div class="col-3 bg-white my-0 mb-0" style="border-radius: 2%;height: 70px"><h3>Others</h3> </div>
-      </div>
+    
 
 
       <div id="update_patient_data" class="justify-content-center modal-body">
@@ -73,14 +69,8 @@
                           <th>Registration_No</th>
                           <th>Course</th>
                           <th>Current Medication</th>
-                          <th>Height</th>
-                          <th>Weight</th>
-                          <th>Age</th>
-                          <th>Reason</th>
-                          <th>Desease</th>
-                          <th>Doctors_comment</th>
-                          <th>Medication_given</th>
-                          <th>Lab Comment</th>
+                          <th>lab_comment</th>
+                          
                       </tr>
                   </thead>
 
@@ -95,14 +85,8 @@
                           <td>{{instance.fields.Registration_number}}</td>
                           <td>{{instance.fields.Course}}</td>
                           <td>{{instance.fields.current_medication}}</td>
-                          <td>{{instance.fields.Height}}</td>
-                          <td>{{instance.fields.Weight}}</td>
-                          <td>{{instance.fields.DateofBirth}}</td>
-                          <td>{{instance.fields.reason_for_seeing_doctor}}</td>
-                          <td>{{instance.fields.Desease}}</td>
-                          <td>{{instance.fields.Doctors_comment}}</td>
-                          <td>{{instance.fields.Medication_given}}</td>
                           <td>{{instance.fields.lab_comment}}</td>
+                          
                       </tr>     
 
                   </tbody>
@@ -115,7 +99,7 @@
       <div class="container " style="margin-left: 15%;">
         
         <!-- Trigger the modal with a button -->
-        <button style="width: 200px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">update user data</button>
+        <button style="width: 200px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save results</button>
       
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -128,7 +112,7 @@
               <div class="modal-body">
                 <div class=" form_container col-5 my-5" id="update_patient_data" style=" height: 300px; margin-left: 30%;">
                     
-                    <form class="overlay"  action="{% url 'update_student' %}" method="post" style="background-color:aliceblue;border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: -50%;width: 200%;">
+                    <form class="overlay"  action="{% url 'lab' %}" method="post" style="background-color:aliceblue;border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: -50%;width: 200%;">
                         <h3 style="font-family: 'Times New Roman', Times, serif;text-align: center;"> Update Patient Data</h3>
                     {% csrf_token %}
     
@@ -145,32 +129,14 @@
                         <div class="row w-full lg:w-6/12 px-4">
                             <div>
                             <div class="form-group">
-                                <label style="color: aliceblue;" for="Desease">Desease</label>
-                                <input type="text" class="form-control" name="Desease" placeholder="Desease" required>
+                                <label style="color: aliceblue;" for="lab_comment">lab_comment</label>
+                                <input type="text" class="form-control" name="lab_comment" placeholder="lab_comment" required>
                             </div>
                             </div>
                             
                         </div>
     
-                        <div class="row w-full lg:w-6/12 px-4">
-                            <div>
-                            <div class="form-group">
-                                <label style="color: aliceblue;" for="Medication_given">Medication_given</label>
-                                <input type="text" class="form-control" name="Medication_given" placeholder="Medication_given" required>
-                            </div>
-                            </div>
-                            
-                        </div>
                         
-                        <div class="row w-full lg:w-6/12 px-4">
-                            <div>
-                            <div class="form-group">
-                                <label style="color: aliceblue;" for="Doctors_comment">Doctors_comment</label>
-                                <input type="text" class="form-control" name="Doctors_comment" placeholder="Doctors_comment" required>
-                            </div>
-                            </div>
-                            
-                        </div>
                         
                         <button  type="submit" style="width: 40%;margin-left: 30%;background-color: rgb(40, 66, 89);">Update data</button>
                     </form>
@@ -213,6 +179,8 @@
                         <th>Weight</th>
                         <th>Age</th>
                         <th>Reason</th>
+                        <th>lab_comment</th>
+                        
                     </tr>
                 </thead>
 
@@ -229,6 +197,8 @@
                         <td>{{instance.fields.Weight}}</td>
                         <td>{{instance.fields.DateofBirth}}</td>
                         <td>{{instance.fields.reason_for_seeing_doctor}}</td>
+                        <td>{{instance.fields.lab_comment}}</td>
+                        
                     </tr>       
                     
                 </tbody>
@@ -320,7 +290,7 @@
                     <a href="#">
                         <i class="fa fa-book fa-2x"></i>
                         <span class="nav-text">
-                           Dismisals
+                           History55
                         </span>
                     </a>
                 </li>

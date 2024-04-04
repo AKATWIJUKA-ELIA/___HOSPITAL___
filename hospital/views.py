@@ -144,11 +144,46 @@ def update_student(request):
             Desease = request.POST.get('Desease')
             Doctors_comment =request.POST.get('Doctors_comment')
             Medication_given = request.POST.get('Medication_given')
+            lab_comment = request.POST.get('lab_comment')
             
             if student:
                 
-                Student.objects.filter(Registration_number=Registration_number).update(Desease=Desease, Doctors_comment=Doctors_comment,Medication_given=Medication_given)
+                Student.objects.filter(Registration_number=Registration_number).update(Desease=Desease, Doctors_comment=Doctors_comment,Medication_given=Medication_given,lab_comment=lab_comment)
                 messages.success(request, "Patient with registration number {} has been updated successfully...".format(Registration_number))
         except ValueError:
                 return messages.error(request,"The Registration Number You entered is Not Available \n Please check it and Try Again")    
-    return redirect('doctor')       
+    return redirect('doctor')  
+
+
+def lab(request):
+    if request.method == 'POST':
+        try:
+            Registration_number  = request.POST.get('Registration_number')
+            student = Student.objects.filter(Registration_number=Registration_number).exists()
+            lab_comment = request.POST.get('lab_comment')
+            
+            if student:
+                
+                Student.objects.filter(Registration_number=Registration_number).update(lab_comment=lab_comment)
+                messages.success(request, "Patient with registration number {} has been updated successfully...".format(Registration_number))
+        except ValueError:
+                return messages.error(request,"The Registration Number You entered is Not Available \n Please check it and Try Again")    
+    student_data = serializers.serialize("python", Student.objects.all())
+    staff_data = serializers.serialize("python", Staff.objects.all())
+    other_data = serializers.serialize("python", Other.objects.all())
+      
+    number_of_other = Other.objects.count()
+    number_of_student = Student.objects.count()
+    number_of_Staff = Staff.objects.count()
+    total_patients = number_of_Staff+number_of_other+number_of_student
+    
+    context = {'data':student_data,
+                'staff_data':staff_data,
+                'other_data':other_data,
+                'number_of_students': number_of_student,
+                'number_of_others' : number_of_other,
+                'number_of_Staff': number_of_Staff,
+                'total_patients':total_patients
+                }
+      
+    return render(request, "lab.html",context=context)     
