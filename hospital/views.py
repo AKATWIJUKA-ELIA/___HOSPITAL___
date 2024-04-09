@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.db import IntegrityError
 
 
 # Create your views here.
@@ -27,14 +28,19 @@ def register_student(request):
         reason_for_seeing_doctor = request.POST.get('reason_for_seeing_doctor')
         Registration_number = request.POST.get('Registration_number')
         Course = request.POST.get( "Course")
+        consultation_fee = 5000
         
         if Registered_Students.objects.filter(Registration_number=Registration_number,name=name).exists():
+            Amount = Registered_Students.objects.get(Registration_number=Registration_number)
+            Amount_Paid = Amount.Amount_Paid
+            Registered_Students.objects.filter(Registration_number= Registration_number).update(Amount_Paid = Amount_Paid-consultation_fee)
             student = Student.objects.create(name=name,email=email,DateofBirth=DateofBirth,Contact=Contact,Residence=Residence,gender=gender,Weight=Weight,Height=Height,Marital_status=Marital_status,current_medication=current_medication,Next_of_kin=Next_of_kin,Relationship=Relationship,contact_Next_of_kin=contact_Next_of_kin,reason_for_seeing_doctor=reason_for_seeing_doctor,Registration_number=Registration_number,Course=Course)
             student.save()
+            messages.success(request,"Patient {} Saved Successfully".format(name))
         else:
             messages.error(request,"The entered student is not a Registered Student")
             return render(request,'registration.html')
-        messages.success(request,"Patient {} Saved Successfully".format(name))
+        
         return render(request,'registration.html')
   
     return render(request,  'registration.html')
@@ -112,13 +118,20 @@ def doctor(request):
       return render(request, 'doctor.html',context=context)
   
 def accounts(request):
+    
     if request.method =="POST":
         name = request.POST['name']
         Registration_number = request.POST['Registration_number']
         Amount_Paid = request.POST['Amount_Paid']
-        Registered_Students.objects.create(name=name,Registration_number=Registration_number,Amount_Paid=Amount_Paid)
-        messages.success(request,"Student {} Saved Successfully".format(name))
+        try:
+            Registered_Students.objects.create(name=name,Registration_number=Registration_number,Amount_Paid=Amount_Paid)
+            messages.success(request,"Student {} Saved Successfully".format(name))
+        except IntegrityError:
+            messages.error(request,"This Registration Number is already in use")
+        except ValueError: 
+            messages.error(request,"This Registration Number is already in use")
     return render(request, 'accounts.html')
+       
 
 
 def login(request):
