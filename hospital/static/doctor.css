@@ -213,6 +213,14 @@ button:hover{
       background-color: #ffff;
       color: #0b0914;
 }
+.custo{
+  color:#c12a2a;
+}    
+.custo:hover {
+  
+  color:#fff;
+  background-color:#000000;
+}
 
 /*FORMS*/
 .form1 {
@@ -269,3 +277,58 @@ button:hover{
       background: rgba(0, 0, 0, 0.9)
     }
   
+/* NEW NAV*/
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-list li {
+  margin-right: 20px;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.profile-image img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content li {
+  margin-bottom: 10px;
+}
+
+.dropdown-content a {
+  color: #fff;
+  text-decoration: none;
+}

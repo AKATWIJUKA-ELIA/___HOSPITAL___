@@ -1,0 +1,232 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'med.css' %}">
+<link href="{% static 'images/Bugema-University-removebg-preview.png' %}" rel="icon">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Medical Form</title>
+</head>
+<body>
+    
+
+
+<div id="student_table"  style="border-radius: 5%;">
+    <div style="margin-left: 45%;">
+        <img src="{% static 'images/Bugema-University-removebg-preview.png' %}" width="200px"; height="100px;">
+</div>
+    <h1 style="font-family: 'Times New Roman', Times, serif;color: blue;text-align: center;">BUGEMA UNIVERSITY HOSPITAL</h1>
+    
+    <div style="font-family: 'Times New Roman', Times, serif;margin-top: -10%;">
+        <h5> Gayaza Zirobwe Road</h5>
+        <h5>p.o.box 6529,</h5>
+        <h5>Kampala</h5>
+    </div>
+    <div style="float: right;margin-top: -6%;font-family: 'Times New Roman', Times, serif;">
+        <h5> info@bugemauniv.ac.ug</h5>
+        <h5> +256 - 312 351 400</h5>
+        <h5>http://bugemauniversityhospital.com</h5>
+    </div>
+    <h2 style="font-family: 'Times New Roman', Times, serif;color: blue;text-align: center;margin-top: 7%;">MEDICAL FORM</h2>
+
+    <h3 style="font-family: 'Times New Roman', Times, serif;">Patient_Id: {{ patient_Id }}</h3>    
+    <h3 style="font-family: 'Times New Roman', Times, serif;">Patient_Name: {{ name }}</h3>    
+            <table class=" zui-table bg-primary table table-hover"  style="margin-left: 29%;margin-top: 1%;border-radius: 20px;margin-right: 5%;width: 70%;">
+                  <!--Table head-->
+                  
+
+                  <thead >
+                       
+                      <tr>
+                          <th style="background-color: rgb(8, 8, 82);" >Date</thsty>
+                          <th style="background-color: rgb(8, 8, 82);" >Name</th>
+                          <th style="background-color: rgb(8, 8, 82);">Registration_No</th>
+                          <th style="background-color: rgb(8, 8, 82);">Course</th>
+                          <th style="background-color: rgb(8, 8, 82);">Gender</th>
+                          <th style="background-color: rgb(8, 8, 82);">Height</th>
+                          <th style="background-color: rgb(8, 8, 82);">Weight</th>
+                          <th style="background-color: rgb(8, 8, 82);">Age</th>
+                          <th style="background-color: rgb(8, 8, 82);">residence</th>
+                          <th style="background-color: rgb(8, 8, 82);">contact</th>
+                          <th style="background-color: rgb(8, 8, 82);">Lab Comment</th>
+                          <th style="background-color: rgb(8, 8, 82);">Doctors_comment</th>
+                          <th style="background-color: rgb(8, 8, 82);">Medication_given</th>
+                          <th style="background-color: rgb(8, 8, 82);">prescription</th>
+                          
+                      </tr>
+                  </thead>
+
+                  
+                  <!--Table head-->
+                  
+                  <!--Table body-->
+                  <tbody id="tdata">
+                      <tr style="cursor: pointer;">
+                          <td>{{ Date}}</td>
+                          <td><a style="color: blue;" href="">{{ name }}</a></td>
+                          <td>{{ Registration_number }}</td>
+                          <td>{{ Course }}</td>
+                          <td>{{ gender }}</td>
+                          <td>{{ Height }}</td>
+                          <td>{{ Weight }}</td>
+                          <td>{{ DateofBirth }}</td>
+                          <td>{{ residence }}</td>
+                          <td>{{ phone }}</td>
+                          <td>{{ lab_comment }}</td>
+                          <td>{{ Doctors_comment }}</td>
+                          <td>{{ Medication_given }}</td>
+                          <td>{{ prescription }}</td>
+                          
+                      </tr>     
+
+                  </tbody>
+                  <!--Table body-->
+                  
+              </table>
+              <br>
+              <br>
+              <br>
+              <h3 style="font-family: 'Times New Roman', Times, serif;text-align: center;">Other Medical Notes</h3>    
+           
+      </div>
+      <script>
+
+
+        let n = document.getElementById("student_notification");
+        let x = document.getElementById("student_table");
+        document.getElementById("student").addEventListener("click", function () {
+            let y = document.getElementById("other_table");
+        
+        if (x.style.display === "none"){
+              x.style.display = "block";
+        }
+        else {
+              x.style.display ="none";
+        }
+        if (y.style.display === "block"){
+              y.style.display = "none";
+        }
+        if (z.style.display === "block"){
+              z.style.display = "none";
+        }
+        if (U.style.display ==="block"){
+        U.style.display = "none"
+    }
+        /* NOTIFICATION FOR STUDENT */
+        if (n.style.display === 'inline'){
+            n.style.display = 'none'
+        }
+
+
+  }
+  );
+
+  let y = document.getElementById("other_table");
+        document.getElementById("other").addEventListener("click", function () {
+            let x = document.getElementById("student_table");
+        
+        if (y.style.display === "none"){
+              y.style.display = "block";
+        }
+
+        else {
+              y.style.display ="none";
+        }
+        if(x.style.display  === "block"){
+            x.style.display = "none"
+        }
+        if (z.style.display === "block"){
+              z.style.display = "none";
+        }
+        if (U.style.display ==="block"){
+        U.style.display = "none"
+    }
+
+  }
+  );
+
+  let z = document.getElementById("staff_table");
+        document.getElementById("staff").addEventListener("click", function () {
+            let x = document.getElementById("student_table");
+            let y = document.getElementById("other_table");
+        
+        if (z.style.display === "none"){
+              z.style.display = "block";
+        }
+
+        else {
+              z.style.display ="none";
+        }
+        if(x.style.display  === "block"){
+            x.style.display = "none"
+        }
+        if(y.style.display  === "block"){
+            y.style.display = "none"
+        }
+        if (U.style.display ==="block"){
+        U.style.display = "none"
+    }
+
+  }
+  );
+
+  //J A V A S C R I P  T  ___C O D E ____F O R ___U P D A T I N G _____P A T I E N T S _____D A T A
+  /*let U = document.getElementById("update_patient_data");
+  document.getElementById('patient_data').addEventListener('click', function(){
+    if (U.style.display ==="none"){
+        U.style.display = "block"
+    }
+    else {
+        z.style.display ="none";
+        }
+        if(x.style.display  === "block"){
+            x.style.display = "none"
+        }
+        if(y.style.display  === "block"){
+            y.style.display = "none"
+        }
+  });*/
+
+  $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#tdata tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#search_other").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#other_data tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#search_staff").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#staff_data tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    
+    
+    
+ 
+  </script> 
+
+</body>
+</html>

@@ -23,6 +23,7 @@ class Student(models.Model):
     Doctors_comment = models.CharField(max_length = 700,default=None, null = True)
     Medication_given = models.CharField(max_length = 500,default=None,null = True)
     lab_comment = models.CharField(max_length = 500,default = None,null=True)
+    prescription = models.CharField(max_length = 500,default = None,null=True)
     
     
 class Other(models.Model):
@@ -46,6 +47,7 @@ class Other(models.Model):
     Doctors_comment = models.CharField(max_length = 700,default=None,null = True)
     Medication_given = models.CharField(max_length = 500,default=None,null = True)
     lab_comment = models.CharField(max_length = 500,default = None,null = True)
+    prescription = models.CharField(max_length = 500,default = None,null=True)
     
         
 class Staff(models.Model):
@@ -69,7 +71,7 @@ class Staff(models.Model):
     Doctors_comment = models.CharField(max_length = 700,default=None,null=True)
     Medication_given = models.CharField(max_length = 500,default=None,null=True)
     lab_comment = models.CharField(max_length = 500,default = None,null=True)
-    
+    prescription = models.CharField(max_length = 500,default = None,null=True)
     
 class Registered_Students(models.Model):
     def balance():
@@ -78,3 +80,6 @@ class Registered_Students(models.Model):
     Registration_number = models.CharField(max_length = 255, unique=True, null=False,primary_key =True)
     Amount_Paid = models.IntegerField(default=1220000)
     Balance = models.IntegerField(default=None,null=True)
+    picture = models.ImageField(default=None, null=True, upload_to='static/profile_image/')
+    
+#class pharmacy(models.Model):

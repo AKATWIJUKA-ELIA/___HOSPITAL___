@@ -37,7 +37,7 @@
                     </div>-->
                     
                     <div class="col-7 " style="margin-left: 20%;">
-                        <h1 style="color:blue;font-family: 'Times New Roman', Times, serif;text-align: center;"> BUGEMA MEDICAL SYSTEM</h1>
+                        <h1 style="color:blue;font-family: 'Times New Roman', Times, serif;text-align: center;"> LIGHT MEDICAL SYSTEM</h1>
                     </div>
 
                     {% if messages %}
@@ -71,9 +71,9 @@
            <div class="row ">
                 <div class=" form_container col-5 my-5  " style=" height: 300px; border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: 30%;">
                     
-                    <form class="overlay" action="{% url 'login' %}" method="post" style="background-color:aliceblue;border-radius: 5px;margin-left: 0%;">
+                    <form class="overlay" action="{% url 'login_reception' %}" method="post" style="background-color:aliceblue;border-radius: 5px;margin-left: 0%;">
                         <h3 style="text-align: center;font-family:'Times New Roman', Times, serif; color:blue;">
-                        LOG IN
+                            [Doctor] LOG IN
                             </h3>
                     {% csrf_token %}
 

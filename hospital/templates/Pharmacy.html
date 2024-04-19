@@ -17,7 +17,7 @@
       <div class="row bg-primary">
             <h3 style="text-align: center;color: aliceblue;margin-left: 17%;">DASH <span style="color: rgb(228, 3, 239);">BOARD</span></h3>
             <br>
-            <h3 style="color: white;font-family: 'Times New Roman', Times, serif;padding-top: 5%;">Welcome Doctor<span style="color: rgb(174, 0, 255);"> ELIA</span></h3>
+            <h1 style="color: white;font-family: 'Times New Roman', Times, serif;padding-top: 5%;">PHAR<span style="color: rgb(174, 0, 255);">MACY</span></h1>
             
             <div class="col-4" style="margin-left: 70%;">
                   <button id="student">Student <span id="student_notification" style="color:aliceblue;display:inline;"> ({{ number_of_students }})</span></button>
@@ -82,7 +82,6 @@
                           <th>Medication_given</th>
                           <th>Lab Comment</th>
                           <th>prescription</th>
-                          
                       </tr>
                   </thead>
 
@@ -132,7 +131,7 @@
               <div class="modal-body">
                 <div class=" form_container col-5 my-5" id="update_patient_data" style=" height: 300px; margin-left: 30%;">
                     
-                    <form class="overlay"  action="{% url 'update_student' %}" method="post" style="background-color:aliceblue;border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: -50%;width: 200%;">
+                    <form class="overlay"  action="{% url 'update_student_pharmacy' %}" method="post" style="background-color:aliceblue;border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: -50%;width: 200%;">
                         <h3 style="font-family: 'Times New Roman', Times, serif;text-align: center;"> Update Patient Data</h3>
                     {% csrf_token %}
     
@@ -149,32 +148,14 @@
                         <div class="row w-full lg:w-6/12 px-4">
                             <div>
                             <div class="form-group">
-                                <label style="color: aliceblue;" for="Desease">Desease</label>
-                                <input type="text" class="form-control" name="Desease" placeholder="Desease" required>
+                                <label style="color: aliceblue;" for="prescription">prescription</label>
+                                <input type="text" class="form-control" name="prescription" placeholder="prescription" required>
                             </div>
                             </div>
                             
                         </div>
     
-                        <div class="row w-full lg:w-6/12 px-4">
-                            <div>
-                            <div class="form-group">
-                                <label style="color: aliceblue;" for="Medication_given">Medication_given</label>
-                                <input type="text" class="form-control" name="Medication_given" placeholder="Medication_given" required>
-                            </div>
-                            </div>
-                            
-                        </div>
                         
-                        <div class="row w-full lg:w-6/12 px-4">
-                            <div>
-                            <div class="form-group">
-                                <label style="color: aliceblue;" for="Doctors_comment">Doctors_comment</label>
-                                <input type="text" class="form-control" name="Doctors_comment" placeholder="Doctors_comment" required>
-                            </div>
-                            </div>
-                            
-                        </div>
                         
                         <button  type="submit" style="width: 40%;margin-left: 30%;background-color: rgb(40, 66, 89);">Update data</button>
                     </form>
@@ -187,7 +168,47 @@
           </div>
         </div>
       </div>
+      <!-- # # # # # # # # #  # # # NEW MODAL  # # # # # # # # # -->
+      <div class="container " style="margin-left: 15%;">
+
       
+        <!-- Modal -->
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog modal-lg bg-black">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                <div class=" form_container col-5 my-5" id="update_patient_data" style=" height: 300px; margin-left: 30%;">
+                    
+                    <form class="overlay"  action="{% url 'print_form' %}" method="post" style="background-color:aliceblue;border: 2px solid rgb(10, 43, 151); border-radius: 5px;margin-left: -50%;width: 200%;">
+                        <h3 style="font-family: 'Times New Roman', Times, serif;text-align: center;"> PRINT MEDICAL FORM</h3>
+                    {% csrf_token %}
+    
+                    <div class="row w-full lg:w-6/12 px-4">
+                        <div>
+                        <div class="form-group">
+                            <label style="color: aliceblue;" for="Registration_number">Registration_number</label>
+                            <input type="text" class="form-control" name="Registration_number" placeholder="Registration_number" required>
+                        </input>
+                        </div>
+                        
+                    </div>
+                        
+                        
+                        <button  type="submit" style="width: 40%;margin-left: 30%;background-color: rgb(40, 66, 89);">Print Medical Form</button>
+                    </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div id="other_table" style="border-radius: 5%; display: none;margin-top: 2%;">
         <h3 style="margin-left: 20%;font-family: 'Times New Roman', Times, serif;">Others' Appointments</h3>
@@ -308,18 +329,15 @@
                 </li>
                 
                     
-                </li>
+                
                
-                <li class="has-subnav " >   
-                    <h6 style="width: 200px;color: white;" type="button" class="custo" data-toggle="modal" data-target="#myModal"> <a style= "cursor:pointer;text-decoration: none;"><i class="fa fa-book fa-2x"></i> <span class="nav-text"> update data</span></a> </h6>
-                </li>
                   
                 
                 <li id="Dismisals">
-                    <a href="#">
+                    <a data-toggle="modal" data-target="#myModal2" href="#">
                         <i class="fa fa-book fa-2x"></i>
                         <span class="nav-text">
-                           Dismisals
+                           Print Form
                         </span>
                     </a>
                 </li>
@@ -329,11 +347,17 @@
             </ul>
 
             <ul class="logout">
+
+            <li>
+                    <a href="javascript:void(0)">
                 <li class="profile-image">
-                    <img src="{% static 'images/Bugema-University-removebg-preview.png' %}" alt="User Profile Image">
-                 </li>
+                 <img src="{% static 'images/Bugema-University-removebg-preview.png' %}" alt="User Profile Image">
+              </li>
+
                 <li>
+                
                    <a href="javascript:void(0)">
+                   
                          <i class="fa fa-power-off fa-2x"></i>
                         <span class="nav-text">
                             Logout
